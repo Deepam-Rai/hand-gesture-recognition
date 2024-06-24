@@ -17,3 +17,15 @@ def get_rotation(landmarks):
     )
     angle_with_vertical = calculate_angle(landmarks[0], average_four)
     return angle_with_vertical, average_four
+
+
+def calculate_average_distance(landmarks):
+    key_indices = [0, 1, 2, 5, 9, 13, 17]
+    distances = []
+    for i in range(len(key_indices)):
+        for j in range(i + 1, len(key_indices)):
+            p1 = np.array([landmarks[key_indices[i]][0], landmarks[key_indices[i]][1]])
+            p2 = np.array([landmarks[key_indices[j]][0], landmarks[key_indices[j]][1]])
+            distance = np.linalg.norm(p1 - p2)
+            distances.append(distance)
+    return np.mean(distances)

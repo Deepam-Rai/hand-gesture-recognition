@@ -49,10 +49,13 @@ try:
                 vert_rotation, average_four = get_rotation(landmarks)
                 cv2.line(frame, tuple(wrist), tuple(average_four), (255, 0, 0), 2)
                 cv2.putText(frame, str(vert_rotation), (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
+                avg_distance = calculate_average_distance(landmarks)
+                cv2.putText(frame, str(avg_distance), (10, 110), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
+                print(f"vert_rotation: {vert_rotation}   avg_distance: {avg_distance}")
             prediction = model.predict([landmarks])
-            print(prediction)
             class_id = np.argmax(prediction)
             class_name = classNames[class_id]
+            print(class_name)
             cv2.putText(frame, class_name, (10, 50), cv2.FONT_HERSHEY_SIMPLEX,
                         1, (0, 0, 255), 2, cv2.LINE_AA)
         cv2.imshow("Output", frame)
